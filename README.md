@@ -4,4 +4,4 @@ The idea of this project came from frontendmentor.io, where you have a bunch of 
 
 Here i´ll be updating the looks of the page to fit the original design.
 
-Feel free to check the result! https://victle2003.github.io/Sunnyside-landing-page/
+Feel free to check the result! https://victle2003.github.io/Crowdfunding-product-page/
