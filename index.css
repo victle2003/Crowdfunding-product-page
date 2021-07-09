@@ -9,18 +9,6 @@
     --dark-gray: hsl(0, 0%, 48%);
 }
 
-* {
-    box-sizing: border-box;
-    text-decoration: none;
-    font-family: 'Commissioner', sans-serif;
-}
-
-html, body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--light-gray);
-}
-
 .flex {
     display: flex;
     flex-direction: row;
@@ -28,10 +16,26 @@ html, body {
     align-items: center;
 }
 
-h1, h2, h3 {    
-    font-weight: 700;
+* {
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Commissioner', sans-serif;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-gray);
+}
+
+body::-webkit-scrollbar, #modalContainer::-webkit-scrollbar {
+    width: 0;
+}
+
+h1, h2, h3, h4 {    
+    font-weight: 700;
+}
 h1 {
     font-size: 1.75em;
     margin-bottom: 0.4em;
@@ -48,7 +52,7 @@ h2, h3, .productPrice, .productFooter p {
     margin-top: 0;
 }
 
-button {
+button, .submit {
     border: none;
     border-radius: 40px;
     outline: none;
@@ -59,7 +63,7 @@ button {
     line-height: 1em;
 }
 
-button:hover {
+button:hover, .submit:hover {
     cursor: pointer;
 }
 
@@ -69,12 +73,12 @@ button:hover {
     padding: 1.5em 2.5em;
 }
 
-.headerCTA {
+#headerCTA {
     padding: 0 2.5em;
     height: 56px;
 }
 
-.productCTA {
+.productCTA, .submit {
     font-size: 0.9em;
     padding: 1.25em 2.25em;
 }
@@ -246,7 +250,7 @@ main {
         margin: 0;
     }
 
-    .productPrice {
+    .productPrice, .minPledge {
         margin-left: 2em;
         font-weight: 500;
         color: var(--moderate-cyan);
@@ -258,4 +262,152 @@ main {
 
     .productLeft > * {
         margin: 0 0.3em 0 0;
+    }
+
+#modalContainer {
+    transition: background-color 0.2s ease;
+    overflow-y: scroll;
+    z-index: 101;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.modalContainerOpened {
+    display: block;
+}
+.modalContainerClosed {
+    display: none;
+}
+
+    #modal {
+        transform: translate(0, -100px);
+        transition: transform 0.2s ease-out, filter 0.2s ease-out;
+        z-index: 102;
+        margin: 2em auto 2em auto;
+        padding: 0;
+        width: 50%;
+        filter: opacity(0);
+    }
+
+    #closeButtonContainer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 2em 1.5em;
+        padding-bottom: 0;
+    }
+    #modalCloseButton {
+        background: none;
+    }
+    #modalCloseButton:hover svg path {
+        opacity: 1;
+    }
+    #modalHeader h3 {
+        font-size: 1.5em;
+        margin-bottom: 0;
+    }
+    #modalDefaultBody {
+        padding: 3em;
+        padding-top: 0;
+    }
+
+    .modalProduct {
+        transition: border-color 0.2s ease;
+        margin-top: 2em;
+        padding: 0;
+    }
+
+    .modalProductStatic {
+        padding: 2em;
+    }
+
+    .modalProductHeader {
+        justify-content: flex-start;
+    }
+
+    .modalProductHeader p, .modalProductHeader h4, .modalProductFooter > * {
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 1em;
+    }
+
+    .radio {
+        margin: 0 1em 0 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 1px solid var(--inner-gray);
+    }
+
+    .radio::after {
+        transition: background-color 0.2s ease;
+        content: "";
+        background-color: transparent;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: block;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .radio:checked::after {
+        background-color: var(--moderate-cyan);
+    }
+
+    .modalText {
+        margin-bottom: 0;
+    }
+
+    .modalProductLeft {
+        margin-left: auto;
+    }
+
+    .modalProductLeft h4 {
+        font-size: 1.25em;
+        margin: 0 0.5em 0 0.5em;
+    }
+
+    .minPledge {
+        margin-left: 1em;
+    }
+
+    .modalProductFooter {
+        justify-content: space-between;
+        border-top: 1px solid var(--inner-gray);
+        padding: 1em 1.5em;
+    }
+
+    .footerInputsContainer {
+        display: flex;
+    }
+
+    .footerInput {
+        margin-left: 1.25em;
+    }
+
+    .pledgeContainer {
+        border: 1px solid var(--inner-gray);
+        border-radius: 30px;
+        padding: 0.5em 1.5em;
+    }
+
+    .pledgeContainer p {
+        margin: 0;
+    }
+
+    .pledgeInput {
+        outline: none;
+        border: none;
+        width: 2.5em;
+        margin-left: 0.5em;
+        font-size: 1em;
+        font-weight: 700;
     }
