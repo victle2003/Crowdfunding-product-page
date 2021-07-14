@@ -1,41 +1,60 @@
 const modalContainer = document.getElementById("modalContainer")
 const modal = document.getElementById("modal")
 const modalCloseButton = document.getElementById("modalCloseButton")
+const form = document.getElementById("form")
 
 const bookmark = document.getElementById("bookmark")
-const bookmarkCircle = document.getElementById("bookmarkCircle")
-const bookmarkTag = document.getElementById("bookmarkTag")
-const bookmarkText = document.getElementById("bookmarkText")
 
-let backedMoney = 89914
-let goalMoney = 100000
-let totalBackers = 5007
+const stats = {
+    backedMoney: 89914,
+    goalMoney: 100000,
+    totalBackers: 5007
+}
+
+const rewardsLeft = {
+    bambooLeft: 101,
+    blackEditionLeft: 64,
+    mahoganyLeft: 0
+}
+
+const rewardsLeftNumbers = Object.values(rewardsLeft)
+
+const pledgeMinValues = {
+    noRewardPledge: 1,
+    bambooPledge: 25,
+    blackEditionPledge: 75,
+    mahoganyPledge: 200
+}
+
+const pledgeMinValuesNumbers = Object.values(pledgeMinValues)
 
 let CTAs = []
-let radioInputs = []
-let modalFooters = []
-let pledgeInputs = []
 
 for(let i = 0; i < document.getElementsByClassName("selectReward").length; i++) {
     CTAs.push(document.getElementsByClassName("selectReward")[i])
     CTAs[i].addEventListener("click", () => {toggleModal(i)})
 }
 
+let radioInputs = []
+
 for(let i = 0; i < document.getElementsByClassName("radio").length; i++) {
     radioInputs.push(document.getElementsByClassName("radio")[i])
     radioInputs[i].addEventListener("click", () => {selectModalProduct(i)})
+    radioInputs[i].addEventListener("click", () => {fillInputValues()})
 }
 
-for(let i = 0; i < document.getElementsByClassName("modalProductFooter").length; i++) {
-    modalFooters.push(document.getElementsByClassName("modalProductFooter")[i])
-}
+let pledgeInputs = document.querySelectorAll(".pledgeInput")
 
-for(let i = 0; i < document.getElementsByClassName("pledgeInput").length; i++) {
-    pledgeInputs.push(document.getElementsByClassName("pledgeInput")[i])
-    setInputFilter(pledgeInputs[i], function(value) {
+pledgeInputs.forEach(inputs => {
+    setInputFilter(inputs, function(value) {
         return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 999 && parseInt(value) >= 1); })
-}
+    inputs.addEventListener("keyup", () => {validateInput(inputs)})
+})
 
+let modalFooters = document.querySelectorAll(".modalProductFooter")
+
+fillInputValues()
+updateProductAvailability()
 // -----------------------Functions-----------------------
 
 function toggleModal(elementIndex) {
@@ -74,7 +93,60 @@ function selectModalProduct(radioIndex) {
     document.getElementsByClassName("modalProduct")[radioIndex].style.border = "3px solid var(--moderate-cyan)"
 }
 
+function fillInputValues() {
+    for (let i = 0; i < pledgeInputs.length; i++) {
+        if (pledgeInputs[i].value === "") {
+            console.log("filled blank space")
+            pledgeInputs[i].value = pledgeMinValuesNumbers[i]
+        }
+    }
+}
 
+function toggleButtonAvailability(inputId, pledge, btnClass) {
+    
+    if (inputId.value >= pledge) {
+        document.getElementById(`${btnClass}Submit`).disabled = false
+        document.getElementById(`${btnClass}Submit`).classList.add("CTAenabled")
+        document.getElementById(`${btnClass}Submit`).classList.remove("CTAdisabled")
+    } else {
+        document.getElementById(`${btnClass}Submit`).disabled = true
+        document.getElementById(`${btnClass}Submit`).classList.add("CTAdisabled")
+        document.getElementById(`${btnClass}Submit`).classList.remove("CTAenabled")
+    }
+}
+
+function validateInput(inputId) {
+    switch(inputId.id) {
+        
+        case "noRewardPledge": 
+            toggleButtonAvailability(inputId, pledgeMinValues.noRewardPledge, "noReward")
+        break;
+
+        case "bambooPledge": 
+            toggleButtonAvailability(inputId, pledgeMinValues.bambooPledge, "bamboo")
+        break;
+
+        case "blackEditionPledge": 
+            toggleButtonAvailability(inputId, pledgeMinValues.blackEditionPledge, "blackEdition")
+        break;
+
+        case "mahoganyPledge": 
+            toggleButtonAvailability(inputId, pledgeMinValues.mahoganyPledge, "mahogany")
+        break;
+    }
+}
+
+function updateProductAvailability() {
+    let n = (document.getElementsByClassName("limitedProduct").length / 2)
+    for (let i = 0; i < n; i++) {
+        if (rewardsLeftNumbers[i] === 0) {
+            document.getElementsByClassName("limitedProduct")[i].style.filter = "opacity(0.4)"
+            document.getElementsByClassName("limitedProduct")[i].style.pointerEvents = "none"
+            document.getElementsByClassName("limitedProduct")[i+n].style.filter = "opacity(0.4)"
+            document.getElementsByClassName("limitedProduct")[i+n].style.pointerEvents = "none"
+        }
+    } 
+}
 
 function addCommas(number) {
 	number += '';
@@ -105,22 +177,26 @@ function setInputFilter(textbox, inputFilter) {
     });
 }
 
-// -----------------Event listeners-----------------------
+// -----------------Added Event listeners-----------------------
 
 modalCloseButton.addEventListener("click", () => {toggleModal(0)})
 
 bookmark.addEventListener("click", () => {
     if(bookmark.classList.contains("notBookmarked")) {
         bookmark.classList.replace("notBookmarked", "bookmarked")
-        bookmarkCircle.style.fill = "var(--dark-cyan)"
-        bookmarkTag.style.fill = "white"
-        bookmarkText.style.color = "var(--dark-cyan)"
-        bookmarkText.innerText = "Bookmarked" 
+        document.getElementById("bookmarkCircle").style.fill = "var(--dark-cyan)"
+        document.getElementById("bookmarkTag").style.fill = "white"
+        document.getElementById("bookmarkText").style.color = "var(--dark-cyan)"
+        document.getElementById("bookmarkText").innerText = "Bookmarked" 
     } else {
         bookmark.classList.replace("bookmarked", "notBookmarked")
-        bookmarkCircle.style.fill = "#2F2F2F"
-        bookmarkTag.style.fill = "#B1B1B1"
-        bookmarkText.style.color = "var(--dark-gray)"
-        bookmarkText.innerText = "Bookmark"
+        document.getElementById("bookmarkCircle").style.fill = "#2F2F2F"
+        document.getElementById("bookmarkTag").style.fill = "#B1B1B1"
+        document.getElementById("bookmarkText").style.color = "var(--dark-gray)"
+        document.getElementById("bookmarkText").innerText = "Bookmark"
     }
+})
+
+form.addEventListener("submit", e => {
+    e.preventDefault()
 })

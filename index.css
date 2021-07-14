@@ -364,6 +364,7 @@ main {
 
     .modalText {
         margin-bottom: 0;
+        margin-left: 2.3em;
     }
 
     .modalProductLeft {
@@ -394,20 +395,29 @@ main {
     }
 
     .pledgeContainer {
-        border: 1px solid var(--inner-gray);
-        border-radius: 30px;
-        padding: 0.5em 1.5em;
-    }
-
-    .pledgeContainer p {
-        margin: 0;
+        position: relative;
     }
 
     .pledgeInput {
+        transition: border-color .1s linear;
+        border: 1px solid var(--inner-gray);
+        border-radius: 30px;
+        padding: 0 1em 0 3em;
         outline: none;
-        border: none;
-        width: 2.5em;
-        margin-left: 0.5em;
+        width: 7em;
+        height: 100%;
         font-size: 1em;
         font-weight: 700;
+    }
+
+    .pledgeInput:focus {
+        border: 2px solid var(--moderate-cyan);
+    }
+
+    .pledgeInputIcon {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 30px;
+        transform: translate(-50%, -50%);
     }

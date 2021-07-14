@@ -30,7 +30,7 @@
             <p>Want to support us in bringing Mastercraft Bamboo Monitor Riser out in the world?</p>
           </div>
 
-          <form class="modalProductsForm">
+          <form class="modalProductsForm" id="form">
             <div class="modalProduct products">
               <div class="modalProductStatic">
                 <div class="modalProductHeader flex">
@@ -45,14 +45,14 @@
                 <label for="noRewardPledge"><p>Enter your pledge</p></label>
                 <div class="footerInputsContainer">
                   <div class="footerInput pledgeContainer flex">
-                    <p>$</p>
+                    <p class="pledgeInputIcon">$</p>
                     <input class="pledgeInput" type="text" id="noRewardPledge">
                   </div>
-                  <input class="footerInput submit CTA CTAenabled" type="submit" value="Continue" >
+                  <input class="footerInput submit CTA CTAenabled" id="noRewardSubmit" type="submit" value="Continue" >
                 </div>
               </div>
             </div>
-            <div class="modalProduct products">
+            <div class="modalProduct products limitedProduct">
               <div class="modalProductStatic">
                 <div class="modalProductHeader flex">
                   <input class="radio" id="bamboo" type="radio" name="product" value="bamboo">
@@ -73,14 +73,14 @@
                 <label for="bambooPledge"><p>Enter your pledge</p></label>
                 <div class="footerInputsContainer">
                   <div class="footerInput pledgeContainer flex">
-                    <p>$</p>
+                    <p class="pledgeInputIcon">$</p>
                     <input class="pledgeInput" type="text" id="bambooPledge">
                   </div>
-                  <input class="footerInput submit CTA CTAenabled" type="submit" value="Continue" >
+                  <input class="footerInput submit CTA CTAenabled" id="bambooSubmit" type="submit" value="Continue" >
                 </div>
               </div>
             </div>
-            <div class="modalProduct products">
+            <div class="modalProduct products limitedProduct">
               <div class="modalProductStatic">
                 <div class="modalProductHeader flex">
                   <input class="radio" id="blackEdition" type="radio" name="product" value="blackEdition">
@@ -101,14 +101,14 @@
                 <label for="blackEditionPledge"><p>Enter your pledge</p></label>
                 <div class="footerInputsContainer">
                   <div class="footerInput pledgeContainer flex">
-                    <p>$</p>
+                    <p class="pledgeInputIcon">$</p>
                     <input class="pledgeInput" type="text" id="blackEditionPledge">
                   </div>
-                  <input class="footerInput submit CTA CTAenabled" type="submit" value="Continue" >
+                  <input class="footerInput submit CTA CTAenabled" id="blackEditionSubmit" type="submit" value="Continue" >
                 </div>
               </div>
             </div>
-            <div class="modalProduct products">
+            <div class="modalProduct products limitedProduct">
               <div class="modalProductStatic">
                 <div class="modalProductHeader flex">
                   <input class="radio" id="mahogany" type="radio" name="product" value="mahogany">
@@ -129,10 +129,10 @@
                 <label for="mahoganyPledge"><p>Enter your pledge</p></label>
                 <div class="footerInputsContainer">
                   <div class="footerInput pledgeContainer flex">
-                    <p>$</p>
+                    <p class="pledgeInputIcon">$</p>
                     <input class="pledgeInput" type="text" id="mahoganyPledge">
                   </div>
-                  <input class="footerInput submit CTA CTAenabled" type="submit" value="Continue" >
+                  <input class="footerInput submit CTA CTAenabled" id="mahoganySubmit" type="submit" value="Continue" >
                 </div>
               </div>
             </div>
@@ -212,7 +212,7 @@
         </p>
         <div class="productsContainer">
 
-          <div class="products">
+          <div class="products limitedProduct">
             <div class="productHeader flex">
               <h3 class="productTitle productHeaderItem">Bamboo stand</h3>
               <p class="productPrice productHeaderItem">Pledge $25 or more</p>
@@ -224,14 +224,14 @@
             </div>
             <div class="productFooter flex">
               <div class="productLeft flex">
-                <h2 class="bambooLeft" class="bambooLeft">101</h2>
+                <h2 class="bambooLeft">101</h2>
                 <p>left</p>
               </div>
               <button class="CTA productCTA CTAenabled selectReward">Select Reward</button>
             </div>
           </div>
 
-          <div class="products">
+          <div class="products limitedProduct">
             <div class="productHeader flex">
               <h3 class="productTitle productHeaderItem">Black edition stand</h3>
               <p class="productPrice productHeaderItem">Pledge $75 or more</p>
@@ -243,14 +243,14 @@
             </div>
             <div class="productFooter flex">
               <div class="productLeft flex">
-                <h2 class="blackLeft">64</h2>
+                <h2 class="blackEditionLeft">64</h2>
                 <p>left</p>
               </div>
               <button class="CTA productCTA CTAenabled selectReward">Select Reward</button>
             </div>
           </div>
 
-          <div class="products" style="filter: opacity(0.4);">
+          <div class="products limitedProduct" style="filter: opacity(0.4);">
             <div class="productHeader flex">
               <h3 class="productTitle productHeaderItem">Mahogany special edition</h3>
               <p class="productPrice productHeaderItem">Pledge $200 or more</p>
