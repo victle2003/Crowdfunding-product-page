@@ -77,7 +77,6 @@ function toggleModal(elementIndex) {
 
         setTimeout(() => {
             modalContainer.className = "modalContainerClosed"
-            console.log("a")
             modal.classList.add("modalDefaultContainer")
             modal.classList.remove("modalCompletedContainer")
             modalDefault.classList.add("modalDefaultOpened")
@@ -86,7 +85,6 @@ function toggleModal(elementIndex) {
             modalCompleted.classList.remove("modalCompletedOpened")
         }, 200)
     } else {
-        console.log("a")
         modal.classList.add("modalDefaultContainer")
         modal.classList.remove("modalCompletedContainer")
         modalDefault.classList.add("modalDefaultOpened")
@@ -115,8 +113,8 @@ function toggleModal(elementIndex) {
                 modalContainer.className = "modalContainerClosed"
             }, 200)
         }
+        selectModalProduct(elementIndex)
     }
-    selectModalProduct(elementIndex)
 }
 
 function selectModalProduct(radioIndex) {
@@ -135,7 +133,6 @@ function fillInputValues() {
         if (pledgeInputs[i].value < pledgeMinValuesNumbers[i]) {
             pledgeInputs[i].value = pledgeMinValuesNumbers[i]
             validateInput(pledgeInputs[i])
-            console.log("filled blank space or insufficient pledge")
         }
     }
 }
