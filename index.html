@@ -14,7 +14,8 @@
 
   <div id="modalContainer" class="modalContainerClosed">
     <div id="modal" class="container">
-      <div class="modalDefault">
+
+      <div class="modalDefault modalDefaultClosed">
 
         <div id="closeButtonContainer">
           <button id="modalCloseButton">
@@ -141,9 +142,13 @@
       </div>
       </div>
       
-      <div id="modalCompleted">
-
+      <div class="modalCompleted modalCompletedClosed">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><g fill="none" fill-rule="evenodd"><circle fill="#3CB3AB" cx="32" cy="32" r="32"/><path stroke="#FFF" stroke-width="5" d="M20 31.86L28.093 40 44 24"/></g></svg>
+        <h3>Thanks for your support!</h3>
+        <p>Your pledge brings us one step closer to sharing Mastercraft Bamboo Monitor Riser worldwide. You will get an email once our campaign is completed.</p>
+        <button id="modalCompletedCloseButton" class="CTA CTAenabled submit flex">Got it!</button>
       </div>
+
     </div>
   </div>
 
@@ -197,8 +202,8 @@
             <p class="flexStatsInfo">days left</p>
           </div>
         </div>
-        <div id="progressContainer">
-          <div id="progress"></div>
+        <div id="progressBarContainer">
+          <div id="progressBar"></div>
         </div>
       </div>
 

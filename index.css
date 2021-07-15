@@ -205,7 +205,7 @@ main {
         margin: 0;
     }
 
-    #progressContainer {
+    #progressBarContainer {
         background-color: var(--border-gray);
         width: 100%;
         height: 12px;
@@ -214,9 +214,10 @@ main {
         overflow: hidden;
     }
 
-    #progress {
+    #progressBar {
+        transition: width .5s ease;
         background-color: var(--moderate-cyan);
-        width: 89.9%;
+        width: 89.914%;
         height: 100%;
         border-radius: 10px;
     }
@@ -286,10 +287,21 @@ main {
         transform: translate(0, -100px);
         transition: transform 0.2s ease-out, filter 0.2s ease-out;
         z-index: 102;
-        margin: 2em auto 2em auto;
         padding: 0;
-        width: 50%;
         filter: opacity(0);
+    }
+
+    .modalDefaultContainer {
+        margin: 2em auto 2em auto;
+        width: 50%;
+    }
+
+    .modalDefaultClosed {
+        display: none;
+    }
+
+    .modalDefaultOpened {
+        display: block;
     }
 
     #closeButtonContainer {
@@ -334,6 +346,7 @@ main {
     }
 
     .radio {
+        cursor: pointer;
         margin: 0 1em 0 0;
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -374,6 +387,15 @@ main {
     .modalProductLeft h4 {
         font-size: 1.25em;
         margin: 0 0.5em 0 0.5em;
+    }
+
+    .modalProduct label {
+        transition: color .2s ease;
+        cursor: pointer;
+    }
+
+    .modalProduct label:hover {
+        color: var(--moderate-cyan);
     }
 
     .minPledge {
@@ -420,4 +442,39 @@ main {
         top: 50%;
         left: 30px;
         transform: translate(-50%, -50%);
+    }
+
+    .modalCompletedContainer {
+        margin: 4em auto 0 auto;
+        width: 36%;
+    }
+
+    .modalCompleted {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 3em;
+    }
+
+    .modalCompletedOpen {
+        display: flex;
+    }
+
+    .modalCompletedClosed {
+        display: none;
+    }
+
+    .modalCompleted svg {
+        transform: scale(1.35);
+        margin-bottom: 3.5em;
+    }
+
+    .modalCompleted h3 {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    .modalCompleted p {
+        margin: 0.5em 0 2em 0;
     }

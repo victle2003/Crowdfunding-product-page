@@ -1,8 +1,10 @@
 const modalContainer = document.getElementById("modalContainer")
 const modal = document.getElementById("modal")
+const modalDefault = document.querySelector(".modalDefault")
+const modalCompleted = document.querySelector(".modalCompleted")
 const modalCloseButton = document.getElementById("modalCloseButton")
+const modalCompletedCloseButton = document.getElementById("modalCompletedCloseButton")
 const form = document.getElementById("form")
-
 const bookmark = document.getElementById("bookmark")
 
 const stats = {
@@ -18,6 +20,7 @@ const rewardsLeft = {
 }
 
 const rewardsLeftNumbers = Object.values(rewardsLeft)
+const rewardsLeftNames = Object.keys(rewardsLeft)
 
 const pledgeMinValues = {
     noRewardPledge: 1,
@@ -43,6 +46,13 @@ for(let i = 0; i < document.getElementsByClassName("radio").length; i++) {
     radioInputs[i].addEventListener("click", () => {fillInputValues()})
 }
 
+let submitButtons = []
+
+for(let i = 0; i < document.getElementsByClassName("submit").length -1; i++) {
+    submitButtons.push(document.getElementsByClassName("submit")[i])
+    submitButtons[i].addEventListener("click", () => {pledgeReward(i)})
+}
+
 let pledgeInputs = document.querySelectorAll(".pledgeInput")
 
 pledgeInputs.forEach(inputs => {
@@ -55,21 +65,11 @@ let modalFooters = document.querySelectorAll(".modalProductFooter")
 
 fillInputValues()
 updateProductAvailability()
-// -----------------------Functions-----------------------
+// -----------------------Functions----------------------- //
 
 function toggleModal(elementIndex) {
 
-    if(modalContainer.className == "modalContainerClosed") {
-        modalContainer.className = "modalContainerOpened"
-        modalContainer.scroll(0, 0)
-        document.body.style.overflowY = "hidden"
-
-        setTimeout(() => {
-            modalContainer.style.backgroundColor = "rgba(0,0,0,0.5)"
-            modal.style.transform = "translate(0, 0)"
-            modal.style.filter = "opacity(1)" 
-        }, 1)
-    } else {
+    if (elementIndex === -1) {
         modalContainer.style.backgroundColor = "rgba(0,0,0,0)"
         modal.style.transform = "translate(0, -100px)"
         modal.style.filter = "opacity(0)"
@@ -77,7 +77,44 @@ function toggleModal(elementIndex) {
 
         setTimeout(() => {
             modalContainer.className = "modalContainerClosed"
+            console.log("a")
+            modal.classList.add("modalDefaultContainer")
+            modal.classList.remove("modalCompletedContainer")
+            modalDefault.classList.add("modalDefaultOpened")
+            modalDefault.classList.remove("modalDefaultClosed")
+            modalCompleted.classList.add("modalCompletedClosed")
+            modalCompleted.classList.remove("modalCompletedOpened")
         }, 200)
+    } else {
+        console.log("a")
+        modal.classList.add("modalDefaultContainer")
+        modal.classList.remove("modalCompletedContainer")
+        modalDefault.classList.add("modalDefaultOpened")
+        modalDefault.classList.remove("modalDefaultClosed")
+        modalCompleted.classList.add("modalCompletedClosed")
+        modalCompleted.classList.remove("modalCompletedOpened")
+
+        if(modalContainer.className == "modalContainerClosed") {
+            modalContainer.className = "modalContainerOpened"
+            modalContainer.scroll(0, 0)
+            document.body.style.overflowY = "hidden"
+
+            setTimeout(() => {
+                modalContainer.style.backgroundColor = "rgba(0,0,0,0.5)"
+                modal.style.transform = "translate(0, 0)"
+                modal.style.filter = "opacity(1)" 
+            }, 1)
+
+        } else {
+            modalContainer.style.backgroundColor = "rgba(0,0,0,0)"
+            modal.style.transform = "translate(0, -100px)"
+            modal.style.filter = "opacity(0)"
+            document.body.style.overflowY = "scroll"
+
+            setTimeout(() => {
+                modalContainer.className = "modalContainerClosed"
+            }, 200)
+        }
     }
     selectModalProduct(elementIndex)
 }
@@ -95,9 +132,10 @@ function selectModalProduct(radioIndex) {
 
 function fillInputValues() {
     for (let i = 0; i < pledgeInputs.length; i++) {
-        if (pledgeInputs[i].value === "") {
-            console.log("filled blank space")
+        if (pledgeInputs[i].value < pledgeMinValuesNumbers[i]) {
             pledgeInputs[i].value = pledgeMinValuesNumbers[i]
+            validateInput(pledgeInputs[i])
+            console.log("filled blank space or insufficient pledge")
         }
     }
 }
@@ -148,6 +186,36 @@ function updateProductAvailability() {
     } 
 }
 
+function pledgeReward(submitValueIndex) {
+    
+    modal.style.transform = "translate(0, -100px)"
+    modal.style.filter = "opacity(0)"
+
+    setTimeout(() => {
+        modal.classList.replace("modalDefaultContainer", "modalCompletedContainer")
+        modalDefault.classList.add("modalDefaultClosed")
+        modalDefault.classList.remove("modalDefaultOpened")
+        modalCompleted.classList.add("modalCompletedOpened")
+        modalCompleted.classList.remove("modalCompletedClosed")
+        modal.style.transform = "translate(0, 0)"
+        modal.style.filter = "opacity(1)"
+    }, 200)
+
+    stats.backedMoney += (parseInt(pledgeInputs[submitValueIndex].value))
+    document.getElementById("backedMoney").innerText = addCommas(stats.backedMoney)
+
+    stats.totalBackers += 1
+    document.getElementById("totalBackers").innerText = addCommas(stats.totalBackers)
+
+    rewardsLeftNumbers[submitValueIndex - 1] = (rewardsLeftNumbers[submitValueIndex - 1] - 1)
+    for (let i = 0; i < document.getElementsByClassName(`${rewardsLeftNames[submitValueIndex - 1]}`).length; i++) {
+        document.getElementsByClassName(`${rewardsLeftNames[submitValueIndex - 1]}`)[i].innerText = rewardsLeftNumbers[submitValueIndex - 1]
+    }
+
+    document.getElementById("progressBar").style.width = `${(stats.backedMoney/stats.goalMoney)*100}%`
+    updateProductAvailability()
+}
+
 function addCommas(number) {
 	number += '';
 	x = number.split('.');
@@ -179,7 +247,8 @@ function setInputFilter(textbox, inputFilter) {
 
 // -----------------Added Event listeners-----------------------
 
-modalCloseButton.addEventListener("click", () => {toggleModal(0)})
+modalCloseButton.addEventListener("click", () => {toggleModal(-1)})
+modalCompletedCloseButton.addEventListener("click", () => {toggleModal(-1)})
 
 bookmark.addEventListener("click", () => {
     if(bookmark.classList.contains("notBookmarked")) {
