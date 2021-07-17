@@ -101,24 +101,11 @@ p {
 }
 
 header {
-    position: static;
-    background-image: url("images/image-hero-desktop.jpg");
     background-size: 100%;
     width: 100%;
-    height: 27vw;
-}
-
-.gradient {
-    z-index: -1;
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 80%;
 }
 
 nav {
-    padding: 3em 10.5em;
     background: rgb(0,0,0);
     background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
 }
@@ -133,13 +120,6 @@ nav {
 
 .navItem:hover {
     border-color: rgba(255, 255, 255, 0.4);
-}
-
-main {
-    position: absolute;
-    left: 50%;
-    width: 50%;
-    transform: translate(-50%, -4%);
 }
 
 .container, .products {
@@ -268,6 +248,7 @@ main {
 #modalContainer {
     transition: background-color 0.2s ease;
     overflow-y: scroll;
+    overflow-x: hidden;
     z-index: 101;
     position: fixed;
     top: 0;
@@ -424,9 +405,9 @@ main {
         transition: border-color .1s linear;
         border: 1px solid var(--inner-gray);
         border-radius: 30px;
-        padding: 0 1em 0 3em;
+        padding: 0 1.25em 0 2.25em;
         outline: none;
-        width: 7em;
+        width: 6em;
         height: 100%;
         font-size: 1em;
         font-weight: 700;
@@ -440,7 +421,7 @@ main {
         margin: 0;
         position: absolute;
         top: 50%;
-        left: 30px;
+        left: 25px;
         transform: translate(-50%, -50%);
     }
 
@@ -478,3 +459,220 @@ main {
     .modalCompleted p {
         margin: 0.5em 0 2em 0;
     }
+
+/* --------------------------- Media queries --------------------------- */
+
+@media (min-width: 800px) {
+
+    header {
+        background-image: url("images/image-hero-desktop.jpg");
+        height: 27vw;
+    }
+
+    nav {
+        padding: 3em 10.5em;
+    }
+
+    main {
+        position: absolute;
+        left: 50%;
+        width: 50%;
+        transform: translate(-50%, -4%);
+    }
+
+    .modalProductLeft2 {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        background-image: url("images/image-hero-mobile.jpg");
+        height: 80vw;
+    }
+
+    nav {
+        padding: 2em 1.5em;
+    }
+
+    .navItemsContainer {
+        display: none;
+    }
+
+    main {
+        width: 90%;
+        margin: 0 5%;
+        transform: translate(0, -2%);
+    }
+
+    .container {
+        padding: 2.5em 1.5em;
+    }
+
+    p {
+        font-size: 0.9em;
+    }
+
+    h1 {
+        font-size: 1.4em;
+    }
+
+    h3 {
+        font-size: 0.9em;
+    }
+
+    #bookmarkText {
+        display: none;
+    }
+
+    #aboutTitle {
+        font-size: 1.25em;
+    }
+
+    #flexStatsContainer {
+        flex-direction: column;
+    }
+
+    .flexStats {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        padding-bottom: 1em;
+        margin-bottom: 1em;
+        border: none;
+        border-bottom: 1px solid var(--inner-gray);
+    }
+
+    #aboutContainer {
+        margin-bottom: 2em;
+    }
+
+    .aboutText {
+        margin: 1.5em 0;
+    }
+
+    .productsContainer {
+        margin-top: 1.5em;
+    }
+
+    .products {
+        padding: 1.5em;
+    }
+
+    .productHeader, .productFooter {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .productPrice {
+        margin-left: 0;
+    }
+
+    .productLeft {
+        margin-bottom: 2em;
+    }
+
+    .modalDefaultContainer, .modalCompletedContainer {
+        width: 90%;
+        margin: 3em 5%;
+    }
+
+    #modalDefaultBody {
+        padding: 0 1.5em;
+    }
+
+    #closeButtonContainer {
+        padding-top: 0.5em;
+    }
+
+    #modalCloseButton {
+        transform: translateY(2.25em);
+    }
+
+    .modalProduct {
+        padding: 0;
+    }
+
+    .modalProductStatic {
+        padding: 1.5em;
+    }
+
+    .modalProductLeft {
+        display: inline-flex;
+        justify-content: flex-start;
+        margin-top: 1.25em;
+    }
+
+    .modalProductLeft h4 {
+        margin-left: 0;
+    }
+
+    .modalProductLeft p {
+        margin: 0;
+    }
+
+    .modalProductHeader .modalProductLeft {
+        display: none;
+    }
+
+    .modalHeaderProductInfo {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .modalHeaderProductInfo p, .modalHeaderProductInfo h4 {
+        margin: 0;
+        line-height: 1.75em;
+    }
+
+    .modalText {
+        margin-left: 0;
+    }
+    
+    .modalProductFooter {
+        padding: 1em 1.5em 1.5em 1.5em;
+        flex-direction: column;
+    }
+
+    .modalProductFooter label p {
+        margin: 0.5em 0;
+    }
+
+    .footerInputsContainer {
+        margin-top: 0.5em;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .footerInput {
+        margin: 0;
+    }
+
+    .footerInputsContainer .CTA {
+        padding: 1.25em 1.75em;
+    }
+
+    .submit {
+        margin: 0;
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+
+    .modalCompleted {
+        padding: 2em 1.5em;
+    }
+
+    .modalCompleted svg {
+        transform: scale(1.2);
+        margin-bottom: 1.5em;
+    }
+
+    .modalCompleted h3 {
+        font-size: 1.35em;
+        margin-bottom: 0.5em;
+    }
+
+    #modalCompletedCloseButton {
+        padding: 1.25em 2.5em;
+    }
+}

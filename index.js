@@ -199,14 +199,16 @@ function pledgeReward(submitValueIndex) {
     }, 200)
 
     stats.backedMoney += (parseInt(pledgeInputs[submitValueIndex].value))
-    document.getElementById("backedMoney").innerText = addCommas(stats.backedMoney)
+    document.getElementById("backedMoney").innerText = `$${addCommas(stats.backedMoney)}`
 
     stats.totalBackers += 1
     document.getElementById("totalBackers").innerText = addCommas(stats.totalBackers)
 
-    rewardsLeftNumbers[submitValueIndex - 1] = (rewardsLeftNumbers[submitValueIndex - 1] - 1)
-    for (let i = 0; i < document.getElementsByClassName(`${rewardsLeftNames[submitValueIndex - 1]}`).length; i++) {
-        document.getElementsByClassName(`${rewardsLeftNames[submitValueIndex - 1]}`)[i].innerText = rewardsLeftNumbers[submitValueIndex - 1]
+    let n = submitValueIndex - 1
+
+    rewardsLeftNumbers[n] --
+    for (let i = 0; i < document.getElementsByClassName(`${rewardsLeftNames[n]}`).length; i++) {
+        document.getElementsByClassName(`${rewardsLeftNames[n]}`)[i].innerText = rewardsLeftNumbers[n]
     }
 
     document.getElementById("progressBar").style.width = `${(stats.backedMoney/stats.goalMoney)*100}%`
