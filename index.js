@@ -1,3 +1,5 @@
+const navToggleButton = document.getElementById("navToggleButton")
+const menu = document.getElementById("menu")
 const modalContainer = document.getElementById("modalContainer")
 const modal = document.getElementById("modal")
 const modalDefault = document.querySelector(".modalDefault")
@@ -94,7 +96,6 @@ function toggleModal(elementIndex) {
 
         if(modalContainer.className == "modalContainerClosed") {
             modalContainer.className = "modalContainerOpened"
-            modalContainer.scroll(0, 0)
             document.body.style.overflowY = "hidden"
 
             setTimeout(() => {
@@ -123,6 +124,13 @@ function selectModalProduct(radioIndex) {
         modalFooters[i].style.display = "none"
         document.getElementsByClassName("modalProduct")[i].style.border = "1px solid var(--inner-gray)"
     }
+
+    let n = 0
+    for (let i = radioIndex; i > 0; i--) {
+        n = n + document.getElementsByClassName("modalProductStatic")[i].offsetHeight
+    }
+    modalContainer.scroll(0, n)
+
     document.getElementsByClassName("radio")[radioIndex].checked = true
     modalFooters[radioIndex].style.display = "flex"
     document.getElementsByClassName("modalProduct")[radioIndex].style.border = "3px solid var(--moderate-cyan)"
@@ -215,6 +223,32 @@ function pledgeReward(submitValueIndex) {
     updateProductAvailability()
 }
 
+function toggleNavMenu() {
+    if (menu.className === "menuClosed") {
+        menu.className = "menuOpened"
+        document.getElementById("hamburger").style.display = "none"
+        document.getElementById("closeNav").style.display = "block"
+        document.body.style.overflowY = "hidden"
+        document.getElementsByTagName("main")[0].style.pointerEvents = "none"
+            setTimeout(() => {
+                menu.style.transform = "translateY(0)"
+                menu.style.filter = "opacity(1)" 
+                document.getElementsByTagName("nav")[0].style.paddingBottom = "35em"
+            }, 1)
+    } else {
+        document.getElementById("hamburger").style.display = "block"
+        document.getElementById("closeNav").style.display = "none"
+        document.body.style.overflowY = "scroll"
+        document.getElementsByTagName("main")[0].style.pointerEvents = "auto"
+        menu.style.transform = "translateY(50px)"
+        menu.style.filter = "opacity(0)"
+        document.getElementsByTagName("nav")[0].style.paddingBottom = "2em"
+            setTimeout(() => {
+                menu.classList = "menuClosed"
+            }, 200)
+    }
+}
+
 function addCommas(number) {
 	number += '';
 	x = number.split('.');
@@ -267,4 +301,22 @@ bookmark.addEventListener("click", () => {
 
 form.addEventListener("submit", e => {
     e.preventDefault()
+})
+
+navToggleButton.addEventListener("click", toggleNavMenu)
+
+window.addEventListener("resize", () => {
+    if (document.body.clientWidth > 600) {
+        document.getElementsByTagName("nav")[0].style.paddingBottom = "2em"
+        document.getElementById("hamburger").style.display = "block"
+        document.getElementById("closeNav").style.display = "none"
+        document.body.style.overflowY = "scroll"
+        document.getElementsByTagName("main")[0].style.pointerEvents = "auto"
+        menu.style.transform = "translateY(50px)"
+        menu.style.filter = "opacity(0)"
+        document.getElementsByTagName("nav")[0].style.paddingBottom = "2em"
+            setTimeout(() => {
+                menu.classList = "menuClosed"
+            }, 200)
+    }
 })
