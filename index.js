@@ -280,6 +280,13 @@ function setInputFilter(textbox, inputFilter) {
 
 // -----------------Added Event listeners-----------------------
 
+modalContainer.addEventListener("click", e => {
+    toggleModal(-1)
+    e.stopPropagation()
+})
+modal.addEventListener("click", e => {
+    e.stopPropagation()
+})
 modalCloseButton.addEventListener("click", () => {toggleModal(-1)})
 modalCompletedCloseButton.addEventListener("click", () => {toggleModal(-1)})
 
